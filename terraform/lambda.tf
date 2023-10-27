@@ -21,7 +21,7 @@ resource "aws_lambda_function" "test_lambda" {
   role          = aws_iam_role.iam_for_lambda.arn
 
   # Initial bootstrap container image intended to be overwritten by deploy pipelines in external CI/CD systems.
-  # NOTE: The bootstrap image must exist during first apply.
+  # NOTE: The bootstrap image must already exist in ECR before first apply.
   image_uri    = "${var.bootstrap_image_name}:${var.bootstrap_image_tag}"
   package_type = "Image"
 
@@ -31,7 +31,7 @@ resource "aws_lambda_function" "test_lambda" {
     variables = var.environment_variables
   }
 
-  // Ignore changes to the image URI made by external CI/CD
+  # Ignore changes to the image URI made by external CI/CD
   lifecycle {
     ignore_changes = [
       image_uri
