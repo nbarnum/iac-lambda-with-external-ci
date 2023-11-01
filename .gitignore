@@ -38,3 +38,6 @@ terraform.rc
 
 # Node.js
 node_modules/
+
+# Lambda code zipfiles
+*.zip
